@@ -1,35 +1,48 @@
+const one = "one"
+const few = "few"
+const sev = "sev"
+
 class CoarseNum {
   constructor(quantity, size) {
-    this.quantity = quantity
-    this.size = size
+    this._quantity = quantity
+    this._size = size
   }
 
-  get quantity() {
-    return this.quantity
+  getQuantity() {
+    return this._quantity
   }
-  get size() {
-    return this.quantity
+  getSize() {
+    return this._size
   }
 
-  quantityToString() {}
+  quantityToString() {
+    switch (this._quantity) {
+      case one:
+        return "One"
+      case few:
+        return "Few"
+      case sev:
+        return "Several"
+    }
+  }
 
-  set size(newSize) {
+  setSize(newSize) {
     if (Number.isInteger(newSize)) {
-      this.size = newSize
+      this._size = newSize
     } else {
       throw new TypeError("The size entered was not of type Integer.")
     }
   }
 
-  set quantity(newQuantity) {
-    if (["one", "few", "sev"].includes(newQuantity)) {
-      this.quantity = newQuantity
+  setQuantity(newQuantity) {
+    if ([one, few, sev].includes(newQuantity)) {
+      this._quantity = newQuantity
     } else {
       throw new TypeError(
-        `Please enter ${"one"}, ${"few"}, or ${"sev"} to change a CoarseNum quantity.`
+        `Please enter "${one}", "${few}", or "${sev}" to change a CoarseNum quantity.`
       )
     }
   }
 }
 
-export default CoarseNum
+module.exports = { CoarseNum, one, few, sev }
