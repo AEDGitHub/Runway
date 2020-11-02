@@ -1,6 +1,7 @@
+const zro = "zro"
 const one = "one"
 const few = "few"
-const sev = "sev"
+const svl = "svl"
 
 class CoarseNum {
   constructor(quantity, size) {
@@ -17,11 +18,13 @@ class CoarseNum {
 
   quantityToString() {
     switch (this._quantity) {
+      case zro:
+        return "Zero"
       case one:
         return "One"
       case few:
         return "Few"
-      case sev:
+      case svl:
         return "Several"
     }
   }
@@ -35,14 +38,14 @@ class CoarseNum {
   }
 
   setQuantity(newQuantity) {
-    if ([one, few, sev].includes(newQuantity)) {
+    if ([zro, one, few, svl].includes(newQuantity)) {
       this._quantity = newQuantity
     } else {
       throw new TypeError(
-        `Please enter "${one}", "${few}", or "${sev}" to change a CoarseNum quantity.`
+        `Please enter "${zro}" "${one}", "${few}", or "${svl}" to change a CoarseNum quantity.`
       )
     }
   }
 }
 
-module.exports = { CoarseNum, one, few, sev }
+module.exports = { CoarseNum, zro, one, few, svl }
