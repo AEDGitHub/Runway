@@ -12,21 +12,9 @@ class CoarseNum {
   getQuantity() {
     return this._quantity
   }
+
   getSize() {
     return this._size
-  }
-
-  quantityToString() {
-    switch (this._quantity) {
-      case zro:
-        return "Zero"
-      case one:
-        return "One"
-      case few:
-        return "Few"
-      case svl:
-        return "Several"
-    }
   }
 
   setSize(newSize) {
@@ -45,6 +33,61 @@ class CoarseNum {
         `Please enter "${zro}" "${one}", "${few}", or "${svl}" to change a CoarseNum quantity.`
       )
     }
+  }
+
+  quantityToString() {
+    switch (this.getQuantity()) {
+      case zro:
+        return "Zero"
+      case one:
+        return "One"
+      case few:
+        return "Few"
+      case svl:
+        return "Several"
+    }
+  }
+
+  multiply(cN1, cN2) {
+    const cN1Quan = cN1.getQuantity()
+    const cN2Quan = cN2.getQuantity()
+
+    // if either quantity is zero, the multiplicative quantity is zero, irrespective of size
+    if (cN1Quan === zro || cN2Quan === zro) {
+      const zroCN = new CoarseNum(zro, 0)
+      return zroCN
+    }
+
+    // else, initial new size is additive combination of both input sizes
+    const cN1Size = coarseNum1.getSize()
+    const cN2Size = coarseNum2.getSize()
+    const newCNSize = cN1Size + cN2Size
+
+    //determine new
+    let newCNQuan
+    switch ([cN1Quan, cN2Quan]) {
+      case [one, one]:
+        newCNQuan = one
+      case [one, few]:
+      case [few, one]:
+        newCNQuan = few
+      case [one, sev]:
+      case [sev, one]:
+        newCNQuan = sev
+      case [few, few]:
+        newCNQuan = one
+        newCNSize++
+      case [few, sev]:
+      case [sev, few]:
+      case [sev, sev]:
+        newCNQuan = few
+        newCNSize++
+      default:
+        return "Something has gone horribly wrong!"
+    }
+
+    //return the new value
+    return new CoarseNum(newCNQuan, newCNSize)
   }
 }
 
